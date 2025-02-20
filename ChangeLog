@@ -1,0 +1,18 @@
+2025-01-22 Luca Sartore <drwolf85@gmail.com>
+    * The HRTnomaly package VERSION 25.1.22 has been created
+    * Created a `src/myomp.h` file to debug a clang issue with OpenMP
+    * Debugged OpenMP code in `src/HRTnomaly.c`
+    * Debugged OpenMP code in `src/fuzzyHRT.c`
+    * Debugged OpenMP code in `src/bayes_hppc.c`
+    * Debugged OpenMP code in `src/post_thresh.c`
+    * Debugged OpenMP code in `src/cellwise.c`
+    * Debugged OpenMP code in `src/dif.c`
+    * Debugged OpenMP code in `src/gif.c`
+    * Modified startup messages in `R/zzz.R`
+
+2025-01-18 Luca Sartore <drwolf85@gmail.com>
+    * The HRTnomaly package VERSION 25.1.18 has been created
+    * Fixed the `Author` and `Authors@R` fields in the `DESCRIPTION` file
+
+2025-01-11 Luca Sartore <drwolf85@gmail.com>
+    * The HRTnomaly package VERSION 25.1.11 has been created
