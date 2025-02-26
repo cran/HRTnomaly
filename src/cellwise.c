@@ -490,6 +490,19 @@ extern void cellwise(double *s, double *z, double *h, double *r, double *t, doub
     }
 }
 
+/**
+* @brief Cellwise anomaly for state-level wide datasets using Bayesian testing
+*
+* @param s Pointer to an empty vector where to store the final scores
+* @param z Pointer to an empty vector for data format anomaly scores
+* @param h Pointer to an empty vector for historical anomaly scores
+* @param r Pointer to an empty vector for relational anomaly scores
+* @param t Pointer to an empty vector for tail anomaly scores
+* @param Xc Pointer to a matrix of current data
+* @param Xp Pointer to a matrix of previously reported data
+* @param dimX Pointer to a vector with the dimensions of `Xc` and `Xp`
+*/
+#ifndef MY_TEST
 extern void bayeswise(double *s, int *G, double *z, double *h, double *r, double *t, double *Xc, double *Xp, int *dimX, int *epochs) {
     int i;
     int len = dimX[0] * dimX[1];
@@ -508,6 +521,7 @@ extern void bayeswise(double *s, int *G, double *z, double *h, double *r, double
     }
     post_results(s, G, dimX, h, r, t);
 }
+#endif
 
 #ifdef MY_TEST
 int main() {
@@ -544,7 +558,7 @@ int main() {
     printf("Testing \e[1;31mscoring_tain with median and no data update\e[0m:\n");
     memset(s, 0, sizeof(double) * 28);
     scoring_tails(s, x, 7, 4, 0, 0); /* Scores with median and no data update */
-    for (i = 0; i < 4; i++) {res <- cellwise(toy[sample.int(100), ], 0.05, 10L)
+    for (i = 0; i < 4; i++) {
         for (j = 0; j < 7; j++) {
             printf("%.2f ", s[i * 7 + j]);
         }
@@ -676,7 +690,8 @@ int main() {
     printf("\n");
     printf("Testing \e[1;31mcellwise\e[0m:\n");
     memset(s, 0, sizeof(double) * 28);
-    cellwise(s, z, h, r, t, x, w, dim7);
+    int maxepoch = 10;
+    cellwise(s, z, h, r, t, x, w, dim7, &maxepoch);
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 7; j++) {
             printf("%.2f ", s[i * 7 + j]);

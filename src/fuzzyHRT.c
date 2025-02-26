@@ -45,8 +45,7 @@ double median(double *x, size_t n) {
 			range = (double)nbins / range; /* Inverse of the length of each bin */
 			memset(wts, 0, nbins * sizeof(double)); /* Set the histogram counts to zero */
 			for (i = 0; i < n; i++) { // This loop can run in parallel with atomic instructions
-				idx = (size_t) (range * (x[i] - v) * (double)(x[i] >= v));
-				idx += (size_t)(idx >= nbins) * (nbins - 1 - idx); /* Compute ID of the bin */
+				idx = (size_t) fmax(0.0, fmin((double) nbins - 1.0, range * (x[i] - v))); /* Compute ID of the bin */
 				wts[idx] += ttwt; /* Standardize the weight as a "density" */
 			}
 			cdf = 0.0; /* Initialize the CDF value */
@@ -94,7 +93,7 @@ void group_normalize(double *res, double *dta, int *dim, int *gr, int g) {
 				x[i] = fabs(x[i]);
 			}
 			v = median(x, j);
-			v = (double) (v <= 0.0) + (double) (v > 0.0) * v;
+			v = (double) (v <= 0.0) + fmax(0.0, v);
 			v = 1.0 / v;
 			for (i = 0; i < nn; i++) {
 				res[i] += (double) (gr[i] == g) * (dta[i] - m) * v;
@@ -170,7 +169,7 @@ void history_check(double *hScore, double *zScore, double *x, double *w, int *n)
  * @param gr  integer vector with group ids
  * @param g   integer id value of a specific group
  */
-void group_tail(double *res, double *dta, int *dim, int *gr, int g) { /** FIXME: introduce new pointer in input */
+void group_tail(double *res, double *dta, int *dim, int *gr, int g) {
 	size_t i = 0, j = 0;
 	size_t nn = (size_t) *dim;
 	double m = 0.0, v = 1.0, *x;
@@ -190,8 +189,7 @@ void group_tail(double *res, double *dta, int *dim, int *gr, int g) { /** FIXME:
 				x[i] = fabs(x[i]);
 			}
 			v = median(x, j);
-			v = (double) (v <= 0.0) + (double) (v > 0.0) * v;
-/** FIXME: introduce here the storage of `v` for later relational residual adjustments ("nixie procedure")*/
+			v = (double) (v <= 0.0) + fmax(0.0, v);
 			v = 1.0 / v;
 			for (i = 0; i < nn; i++) {
 				res[i] += (double) (gr[i] == g) * (dta[i] - m) * v;
@@ -209,14 +207,14 @@ void group_tail(double *res, double *dta, int *dim, int *gr, int g) { /** FIXME:
  * @param ng  pointer to total number of groups
  * @param tScore pointer to the scoring vector for tail outliers
  */
-void tail_check(double *dta, int *dim, int *gr, int *ng, double *tScore) {/** FIXME: introduce new pointer in input */
+void tail_check(double *dta, int *dim, int *gr, int *ng, double *tScore) {
 	int i, g;
 	#if __VOPENMP
 	#pragma omp parallel for default(shared) private(i, g) collapse(2)
 	#endif
 	for (i = 0; i < dim[1]; i++) {
 		for (g = 1; g <= *ng; g++) {
-			group_tail(&tScore[*dim * i], &dta[*dim * i], dim, gr, g);/** FIXME: introduce new pointer in input */
+			group_tail(&tScore[*dim * i], &dta[*dim * i], dim, gr, g);
 		}
 	}
 	#if __VOPENMP
@@ -234,7 +232,7 @@ void tail_check(double *dta, int *dim, int *gr, int *ng, double *tScore) {/** FI
  * @param dim size of input matrix
  * @param s skipping index
  */
-void col_check(double *E, double *A, int *dim, int s) { /** FIXME: introduce new pointer in input */
+void col_check(double *E, double *A, int *dim, int s) {
 	int i, j, k;
 	double tmp, v, *Q, *qty;
 
@@ -279,7 +277,6 @@ void col_check(double *E, double *A, int *dim, int s) { /** FIXME: introduce new
 			tmp = 0.0;
 			for (i = 0; i < dim[1] - 1; i++)
 				tmp += Q[*dim * i + j] * qty[i];
-/** FIXME: include computation of residuals for predictions output of the nixie procedure */
 			E[*dim * s + j] = fabs(A[*dim * s + j] - tmp); 
 			v += E[*dim * s + j] * E[*dim * s + j];
 		}
@@ -366,14 +363,14 @@ void history_res(double *hRes, double *zScore, double *x, double *w, int *n) {
  * @param ng  pointer to total number of groups
  * @param tRes pointer to the residual vector for tail outliers
  */
-void tail_res(double *dta, int *dim, int *gr, int *ng, double *tRes) { /** FIXME: introduce new pointer in input */
+void tail_res(double *dta, int *dim, int *gr, int *ng, double *tRes) {
 	int i, g;
 	#if __VOPENMP
 	#pragma omp parallel for default(shared) private(i, g) collapse(2)
 	#endif
 	for (i = 0; i < dim[1]; i++) {
 		for (g = 1; g <= *ng; g++) {
-			group_tail(&tRes[*dim * i], &dta[*dim * i], dim, gr, g); /** FIXME: introduce new pointer in input */
+			group_tail(&tRes[*dim * i], &dta[*dim * i], dim, gr, g);
 		}
 	}
 }
@@ -432,7 +429,6 @@ void col_res(double *E, double *A, int *dim, int s) { /** FIXME: introduce new p
 			tmp = 0.0;
 			for (i = 0; i < dim[1] - 1; i++)
 				tmp += Q[*dim * i + j] * qty[i];
-/** FIXME: include computation of residuals for predictions output of the nixie procedure */
 			E[*dim * s + j] = fabs(A[*dim * s + j] - tmp);
 			v += E[*dim * s + j] * E[*dim * s + j];
 		}
@@ -452,7 +448,7 @@ void col_res(double *E, double *A, int *dim, int s) { /** FIXME: introduce new p
  * @param A input matrix
  * @param dim size of input matrix
  */
-void relat_res(double *A, int *dim) { /** FIXME: introduce new pointer in input */
+void relat_res(double *A, int *dim) {
 	int i;
 	double *E;
 
@@ -462,7 +458,7 @@ void relat_res(double *A, int *dim) { /** FIXME: introduce new pointer in input 
 		#pragma omp parallel for default(shared) private(i)
 		#endif
 		for (i = 0; i < dim[1]; i++) {
-			col_res(E, A, dim, i); /** FIXME: introduce new pointer in input */
+			col_res(E, A, dim, i);
 		}
 		#if __VOPENMP
 		#pragma omp parallel for simd

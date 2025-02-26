@@ -25,6 +25,7 @@ Synthetically produced data are provided to test the FuzzyHRT algorithm.
 \examples{
 # Load the package
 library(HRTnomaly)
+set.seed(2025L)
 # Load the toy dataset
 data(toy)
 # Detect cellwise outliers

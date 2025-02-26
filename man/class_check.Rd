@@ -37,6 +37,7 @@ class_check(pred, truth)
 \examples{
 # Load the package
 library(HRTnomaly)
+set.seed(2025L)
 # Load the 'toy' data
 data(toy)
 # Detect cellwise outliers using Bayesian Analysis

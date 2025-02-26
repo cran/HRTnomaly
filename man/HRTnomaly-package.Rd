@@ -41,6 +41,7 @@ any official USDA or U.S. Government determination or policy.}
 \examples{
 # Load the package
 library(HRTnomaly)
+set.seed(2025L)
 # Load the 'toy' data
 data(toy)
 # Detect cellwise outliers using robust regression

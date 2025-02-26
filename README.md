@@ -1,11 +1,11 @@
 # Historical, Relational, and Tail Anomaly-Detection Algorithms
 
-Authors: `<img src="man/figures/logo.svg" align="right" alt="HRTnomaly logo" style="width:166px; height:192px; padding:2px;" />`
-[Luca Sartore](mailto://luca.sartore@usda.gov)[`<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">`](https://orcid.org/0000-0002-0446-1328),
-[Lu Chen](mailto://lu.chen@usda.gov)[`<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">`](https://orcid.org/0000-0003-3387-3484),
+Authors: <img src="man/figures/logo.svg" align="right" alt="HRTnomaly logo" style="width:166px; height:192px; padding:2px;" />
+[Luca Sartore](mailto://luca.sartore@usda.gov)[<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">](https://orcid.org/0000-0002-0446-1328),
+[Lu Chen](mailto://lu.chen@usda.gov)[<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">](https://orcid.org/0000-0003-3387-3484),
 [Justin van Wart](mailto://justin.vanwart@usda.gov),
-[Andrew Dau](mailto://andrew.dau@usda.gov)[`<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">`](https://orcid.org/0009-0008-9482-5316), and
-[Valbona Bejleri](mailto://valbona.bejleri@usda.gov)[`<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">`](https://orcid.org/0000-0001-9828-968X)
+[Andrew Dau](mailto://andrew.dau@usda.gov)[<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">](https://orcid.org/0009-0008-9482-5316), and
+[Valbona Bejleri](mailto://valbona.bejleri@usda.gov)[<img alt="ORCID iD" src="https://cran.r-project.org/web/orcid.svg" width="16px" height="16px" style="width:16px; height:16px; margin-left:4px; margin-right:4px; vertical-align:middle">](https://orcid.org/0000-0001-9828-968X)
 
 Maintainer: [Luca Sartore](mailto://drwolf85@gmail.com)
 

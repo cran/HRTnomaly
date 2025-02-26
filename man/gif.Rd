@@ -38,6 +38,7 @@ The use of the R-packages \code{dplyr}, \code{purrr}, and \code{tidyr} is highly
 \examples{
 # Load the package
 library(HRTnomaly)
+set.seed(2025L)
 # Detect outliers in the `iris` dataset
 res <- gif(iris)
 }

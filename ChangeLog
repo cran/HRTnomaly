@@ -1,3 +1,24 @@
+2025-02-25 Luca Sartore <drwolf85@gmail.com>
+    * The HRTnomaly package VERSION 25.2.25 has been created
+    * Udpate version numbers in `DESCRIPTION` and `inst/INSTALL.md` files
+    * Debugged the `median`, `group_normalize`, and `group_tail` functions in `src/fuzzyHRT.c` to fix clang undefined behaviour
+    * Udpate markdown code for images in  `READMD.md`
+    * Modified precompiler code around the `bayeswise` function in `src/cellwise.c` to fix standalone C tests
+    * Fixed example code in `man/bayesHRT.Rd`
+    * Fixed example code in `man/bootHRT.Rd`
+    * Fixed example code in `man/cellwise.Rd`
+    * Fixed example code in `man/class_check.Rd`
+    * Fixed example code in `man/fuzzyHRT.Rd`
+    * Fixed example code in `man/dif.Rd`
+    * Fixed example code in `man/fuzzyHRT.Rd`
+    * Fixed example code in `man/gif.Rd`
+    * Fixed example code in `man/HRTnomaly-package.Rd`
+    * Fixed example code in `man/print.checkwise.Rd`
+    * Fixed example code in `man/toy.Rd`
+
+2025-02-18 Luca Sartore <drwolf85@gmail.com>
+    * The HRTnomaly package VERSION 25.2.18 has been created for upload to CRAN
+
 2025-01-22 Luca Sartore <drwolf85@gmail.com>
     * The HRTnomaly package VERSION 25.1.22 has been created
     * Created a `src/myomp.h` file to debug a clang issue with OpenMP
